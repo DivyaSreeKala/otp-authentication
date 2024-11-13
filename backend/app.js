@@ -63,10 +63,14 @@ app.post('/send-otp',async(req,res) => {
     }
 })
 
-app.get('/verify-email/:email/:otp',async(req,res) => {
+app.get('/verify-email/:otp',async(req,res) => {
     try{
-        const { email, otp } = req.params;
-        const data = await emailModel.find({email,otp});
+        // const { email, otp } = req.params;
+        const { otp } = req.params;
+        console.log(otp)
+        const data = await emailModel.findOne({otp});
+        console.log(data)
+        // const data = await emailModel.find({email,otp});
         res.status(200).send("successfull");
     }catch(err){
         res.status(404).send(err);
